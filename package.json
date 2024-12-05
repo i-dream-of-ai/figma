@@ -4,12 +4,12 @@
   "description": "ModelContextProtocol server for Figma",
   "type": "module",
   "scripts": {
-    "build": "tsc && shx chmod +x dist/*.js",
+    "build": "esbuild index.ts --outfile=dist/index.cjs --bundle --platform=node --format=cjs --banner:js='#!/usr/bin/env node' && shx chmod +x dist/*.cjs",
     "prepare": "npm run build",
-    "watch": "tsc --watch"
+    "watch": "esbuild index.ts --outfile=dist/index.cjs --bundle --platform=node --format=cjs --banner:js='#!/usr/bin/env node' --watch"
   },
   "bin": {
-    "figma-mcp": "./dist/index.js"
+    "figma-mcp": "./dist/index.cjs"
   },
   "files": [
     "dist"
@@ -19,6 +19,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "esbuild": "^0.24.0",
+    "prettier": "^3.4.2",
     "shx": "^0.3.4",
     "typescript": "^5.3.3"
   }
