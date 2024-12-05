@@ -4,14 +4,10 @@ import {
   CallToolRequestSchema,
   CallToolResult,
   ErrorCode,
-  ListResourcesRequestSchema,
   ListToolsRequestSchema,
   McpError,
-  ReadResourceRequestSchema,
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
-import { existsSync, readFileSync } from "fs";
-import path from "path";
 import { downloadFigmaFile, getThumbnailsOfCanvases, parseKeyFromUrl } from "./figma_api.js";
 
 const server = new Server(
@@ -27,50 +23,6 @@ const server = new Server(
     },
   }
 );
-
-server.setRequestHandler(ListResourcesRequestSchema, async () => ({
-  resources: [
-    {
-      uri: `file://figma-mcp-files`,
-      name: `Locally cached Figma files`,
-      mimeType: "application/json",
-      description: "A cache of Figma files you've already added to this machine.",
-    },
-  ],
-}));
-
-server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-  if (request.params.uri === `file://figma-mcp-files`) {
-    const filesListPath = path.join(process.env.HOME!, ".figma-mcp", "files.json");
-    if (!existsSync(filesListPath)) {
-      return {
-        contents: [],
-      };
-    }
-    const files = readFileSync(filesListPath, "utf8");
-    return {
-      contents: [
-        {
-          uri: request.params.uri,
-          text: files,
-        },
-      ],
-    };
-  }
-
-  server.sendLoggingMessage({
-    level: "info",
-    data: "Got Figma files",
-  });
-  return {
-    contents: [
-      {
-        uri: request.params.uri,
-        text: "Got weather data",
-      },
-    ],
-  };
-});
 
 const ADD_FIGMA_FILE: Tool = {
   name: "add_figma_file",
