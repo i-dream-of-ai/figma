@@ -1,0 +1,25 @@
+{
+  "name": "figma-mcp",
+  "version": "0.1.0",
+  "description": "ModelContextProtocol server for Figma",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && shx chmod +x dist/*.js",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "bin": {
+    "figma-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "shx": "^0.3.4",
+    "typescript": "^5.3.3"
+  }
+}
