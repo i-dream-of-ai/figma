@@ -59,13 +59,9 @@ export async function downloadFigmaFile(key: string): Promise<FigFile> {
   };
 }
 
-export async function getThumbnailsOfCanvases(
-  key: string,
-  document: FigNode
-): Promise<{ id: string; url: string; b64: string }[]> {
-  const canvasIds = getCanvasIds(document);
+async function getThumbnails(key: string, ids: string[]): Promise<{ [id: string]: string }> {
   const thumbnails = await fetch(
-    `https://api.figma.com/v1/images/${key}?ids=${canvasIds.join(",")}&format=png&page_size=1`,
+    `https://api.figma.com/v1/images/${key}?ids=${ids.join(",")}&format=png&page_size=1`,
     {
       headers: {
         "X-FIGMA-TOKEN": getFigmaApiKey(),
@@ -76,8 +72,17 @@ export async function getThumbnailsOfCanvases(
   if (data.err) {
     throw new Error(`Error getting thumbnails: ${data.err}`);
   }
+  return data.images;
+}
+
+export async function getThumbnailsOfCanvases(
+  key: string,
+  document: FigNode
+): Promise<{ id: string; url: string; b64: string }[]> {
+  const canvasIds = getCanvasIds(document);
+  const thumbnails = await getThumbnails(key, canvasIds);
   const results = [];
-  for (const [id, url] of Object.entries(data.images)) {
+  for (const [id, url] of Object.entries(thumbnails)) {
     results.push({
       id,
       url,

@@ -8,14 +8,24 @@
  -- TOOLS are the LLM actually call to manage the data
  -- PROMPTS are out of the box prompts. this seems like how you guide the user
  -- SAMPLING is a way for the server to ask the client to send a message to the LLM which may then call out to other MCP server. Not in Claude yet.
-- how can I access the local file system to download figma resources?
+- ✅ how can I access the local file system to download figma resources?
+ -- not gonna worry about caching. the context will stay in the thread so Claude can handle that.
 
+Tools:
+- ✅ add_figma_file() - Get JSON + page thumbnails in context
+- [] view_node(node_id) - Get a thumbnail for a specific node
+- [] read_comments() - Get all comments on a file
+- [] post_comment(node_id, position, text) - Post a comment on a node or reply
+- reply_to_comment(comment_id, text)
 
+Docs:
+- [] how to setup
+- [] demo using this + file + Claude to write out JSX
+- [] demo using this to brainstorm with claude after a reflection
 
-## Product Ideas
-- web app for explaining the features you expect, providing designs (eg figma links). provide a figjam link with user flows, provide links to other figma designs for details and screenshots. then other agents could connect to this
- -- "add file" api where the user can provide a file URL and we add it to the context
- -- "update file"
- -- "read file"
- -- "render thumbnail"
- -- bonus: "list project / team files"
+Tools to skip:
+- read_activity_logs - This would allow admins to explore data more easily. Claude doesn't have code interpreter tho :/
+- webhooks - better handled programmatically 
+- devresource - this could be really cool for having Claude manage your Jira + Figma
+- components & styles & analytics - Maybe this would be nice?
+
