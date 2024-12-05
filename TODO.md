@@ -13,10 +13,10 @@
 
 Tools:
 - ✅ add_figma_file() - Get JSON + page thumbnails in context
-- [] view_node(node_id) - Get a thumbnail for a specific node
-- [] read_comments() - Get all comments on a file
-- [] post_comment(node_id, position, text) - Post a comment on a node or reply
-- reply_to_comment(comment_id, text)
+- ✅ view_node(node_id) - Get a thumbnail for a specific node
+- ✅ read_comments() - Get all comments on a file
+- ✅ post_comment(node_id, position, text) - Post a comment on a node or reply
+- ✅ reply_to_comment(comment_id, text)
 
 Docs:
 - [] how to setup

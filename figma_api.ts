@@ -59,7 +59,7 @@ export async function downloadFigmaFile(key: string): Promise<FigFile> {
   };
 }
 
-async function getThumbnails(key: string, ids: string[]): Promise<{ [id: string]: string }> {
+export async function getThumbnails(key: string, ids: string[]): Promise<{ [id: string]: string }> {
   const thumbnails = await fetch(
     `https://api.figma.com/v1/images/${key}?ids=${ids.join(",")}&format=png&page_size=1`,
     {
@@ -90,6 +90,51 @@ export async function getThumbnailsOfCanvases(
     });
   }
   return results;
+}
+
+export async function readComments(fileKey: string) {
+  const response = await fetch(`https://api.figma.com/v1/files/${fileKey}/comments`, {
+    headers: {
+      "X-FIGMA-TOKEN": getFigmaApiKey(),
+    },
+  });
+  return await response.json();
+}
+
+export async function postComment(
+  fileKey: string,
+  message: string,
+  x: number,
+  y: number,
+  nodeId?: string
+) {
+  const response = await fetch(`https://api.figma.com/v1/files/${fileKey}/comments`, {
+    method: "POST",
+    headers: {
+      "X-FIGMA-TOKEN": getFigmaApiKey(),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message,
+      client_meta: { node_offset: { x, y }, node_id: nodeId },
+    }),
+  });
+  return await response.json();
+}
+
+export async function replyToComment(fileKey: string, commentId: string, message: string) {
+  const response = await fetch(`https://api.figma.com/v1/files/${fileKey}/comments`, {
+    method: "POST",
+    headers: {
+      "X-FIGMA-TOKEN": getFigmaApiKey(),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message,
+      comment_id: commentId,
+    }),
+  });
+  return await response.json();
 }
 
 async function imageUrlToBase64(url: string) {
