@@ -46,7 +46,7 @@ https://www.figma.com/design/MLkM98c1s4A9o9CMnHEyEC
 
 ## Demo of a more realistic usage
 
-// TODO
+[![Watch the demo video](https://cdn.loom.com/sessions/thumbnails/0e759622e05e4ab1819325bcf6128945-with-play.gif)](https://www.loom.com/share/0e759622e05e4ab1819325bcf6128945)
 
 
 ## Development Setup
