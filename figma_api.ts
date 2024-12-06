@@ -11,9 +11,9 @@ export function parseKeyFromUrl(url: string) {
   // https://www.figma.com/board/vJzJ1oVCzowAKAayQJx6Ug/...
   // https://www.figma.com/design/8SvxepW26v4d0AyyTAw23c/...
   // https://www.figma.com/file/8SvxepW26v4d0AyyTAw23c/...
-  const matches = url.match(/figma\.com\/(?:board|design|file)\/([^/?]+)/);
+  const matches = url.match(/figma\.com\/(board|design|file)\/([^/?]+)/);
   if (matches) {
-    return matches[1];
+    return matches[2]; // Return the second capture group which contains the key
   }
   throw new Error("Could not parse Figma key from URL");
 }
