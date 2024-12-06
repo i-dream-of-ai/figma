@@ -1,9 +1,10 @@
 function getFigmaApiKey() {
-  const apiKey = process.env.FIGMA_API_KEY;
-  if (!apiKey) {
-    throw new Error("FIGMA_API_KEY is not set");
-  }
-  return apiKey;
+  // const apiKey = process.env.FIGMA_API_KEY;
+  // if (!apiKey) {
+  //   throw new Error("FIGMA_API_KEY is not set");
+  // }
+  // return apiKey;
+  return "figd_GitFSbm-dWB9LYOGociFxUhcpj7O2KRefKjl2KXu";
 }
 
 export function parseKeyFromUrl(url: string) {
@@ -35,12 +36,16 @@ type FigFile = {
 
 export function getCanvasIds(figFileJson: FigNode) {
   const canvasIds: string[] = [];
-  if (figFileJson.type === "CANVAS") {
-    canvasIds.push(figFileJson.id);
-  }
-  if (figFileJson.children) {
-    for (const child of figFileJson.children) {
-      canvasIds.push(...getCanvasIds(child));
+  const queue: FigNode[] = [figFileJson];
+
+  while (queue.length > 0) {
+    const node = queue.shift()!;
+    if (node.type === "CANVAS") {
+      canvasIds.push(node.id);
+      continue; // Skip children of canvases
+    }
+    if (node.children) {
+      queue.push(...node.children);
     }
   }
   return canvasIds;

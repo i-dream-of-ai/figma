@@ -59,7 +59,7 @@ const VIEW_NODE: Tool = {
       },
       node_id: {
         type: "string",
-        description: "The ID of the node to view",
+        description: "The ID of the node to view. Node ids have the format `<number>:<number>`",
       },
     },
     required: ["file_key", "node_id"],
@@ -93,7 +93,8 @@ const POST_COMMENT: Tool = {
       },
       node_id: {
         type: "string",
-        description: "The ID of the node to comment on",
+        description:
+          "The ID of the node to comment on. Node ids have the format `<number>:<number>`",
       },
       message: {
         type: "string",
@@ -124,7 +125,7 @@ const REPLY_TO_COMMENT: Tool = {
       },
       comment_id: {
         type: "string",
-        description: "The ID of the comment to reply to",
+        description: "The ID of the comment to reply to. Comment ids have the format `<number>`",
       },
       message: {
         type: "string",
@@ -142,7 +143,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 async function doAddFigmaFile(url: string): Promise<CallToolResult> {
   const key = parseKeyFromUrl(url);
   const figFileJson = await downloadFigmaFile(key);
-  const thumbnails = await getThumbnailsOfCanvases(key, figFileJson.document);
+  // Claude seems to error when this is used
+  // const thumbnails = await getThumbnailsOfCanvases(key, figFileJson.document);
   return {
     content: [
       {
@@ -174,19 +176,19 @@ async function doAddFigmaFile(url: string): Promise<CallToolResult> {
         type: "text",
         text: "Here are thumbnails of the canvases in the Figma file",
       },
-      ...thumbnails
-        .map((thumbnail) => [
-          {
-            type: "text" as const,
-            text: `Next is the image of canvas ID: ${thumbnail.id}`,
-          },
-          {
-            type: "image" as const,
-            data: thumbnail.b64,
-            mimeType: "image/png",
-          },
-        ])
-        .flat(),
+      // ...thumbnails
+      //   .map((thumbnail) => [
+      //     {
+      //       type: "text" as const,
+      //       text: `Next is the image of canvas ID: ${thumbnail.id}`,
+      //     },
+      //     {
+      //       type: "image" as const,
+      //       data: thumbnail.b64,
+      //       mimeType: "image/png",
+      //     },
+      //   ])
+      //   .flat(),
     ],
   };
 }
