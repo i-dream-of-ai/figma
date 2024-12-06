@@ -1,10 +1,9 @@
 function getFigmaApiKey() {
-  // const apiKey = process.env.FIGMA_API_KEY;
-  // if (!apiKey) {
-  //   throw new Error("FIGMA_API_KEY is not set");
-  // }
-  // return apiKey;
-  return "figd_GitFSbm-dWB9LYOGociFxUhcpj7O2KRefKjl2KXu";
+  const apiKey = process.env.FIGMA_API_KEY;
+  if (!apiKey) {
+    throw new Error("FIGMA_API_KEY is not set");
+  }
+  return apiKey;
 }
 
 export function parseKeyFromUrl(url: string) {
