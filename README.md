@@ -46,8 +46,7 @@ https://www.figma.com/design/MLkM98c1s4A9o9CMnHEyEC
 
 ## Demo of a more realistic usage
 
-[![Watch the demo video](https://cdn.loom.com/sessions/thumbnails/0e759622e05e4ab1819325bcf6128945-with-play.gif)](https://www.loom.com/share/0e759622e05e4ab1819325bcf6128945)
-
+https://www.loom.com/share/0e759622e05e4ab1819325bcf6128945?sid=bcf6125b-b5de-4098-bf81-baff157e3dc3
 
 ## Development Setup
 
