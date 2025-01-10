@@ -19,7 +19,8 @@ A [ModelContextProtocol](https://modelcontextprotocol.io) server that enables AI
 echo '{
   "mcpServers": {
     "figma-mcp": {
-      "command": "npx figma-mcp",
+      "command": "npx",
+      "args": ["figma-mcp"],
       "env": {
         "FIGMA_API_KEY": "<YOUR_API_KEY>"
       }
