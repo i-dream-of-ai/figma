@@ -10,18 +10,17 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import {
   downloadFigmaFile,
-  getThumbnailsOfCanvases,
-  parseKeyFromUrl,
   getThumbnails,
-  readComments,
+  parseKeyFromUrl,
   postComment,
+  readComments,
   replyToComment,
 } from "./figma_api.js";
 
 const server = new Server(
   {
     name: "figma-mcp",
-    version: "0.1.0",
+    version: "0.1.3",
   },
   {
     capabilities: {
